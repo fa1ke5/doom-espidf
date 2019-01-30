@@ -27,13 +27,14 @@
 
 
 #if 0
-#define PIN_NUM_MISO 25
+
+#define PIN_NUM_MISO 12
 #define PIN_NUM_MOSI 23
-#define PIN_NUM_CLK  19
-#define PIN_NUM_CS   22
-#define PIN_NUM_DC   21
-#define PIN_NUM_RST  18
-#define PIN_NUM_BCKL 5
+#define PIN_NUM_CLK  18
+#define PIN_NUM_CS   27
+#define PIN_NUM_DC   26
+#define PIN_NUM_RST  5
+#define PIN_NUM_BCKL 1
 #else
 #define PIN_NUM_MOSI CONFIG_HW_LCD_MOSI_GPIO
 #define PIN_NUM_MISO CONFIG_HW_LCD_MISO_GPIO
@@ -284,7 +285,9 @@ void IRAM_ATTR displayTask(void *arg) {
         .max_transfer_sz=(MEM_PER_TRANS*2)+16
     };
     spi_device_interface_config_t devcfg={
-        .clock_speed_hz=40000000,               //Clock out at 26 MHz. Yes, that's heavily overclocked.
+//        .clock_speed_hz=40000000,               //Clock out at 26 MHz. Yes, that's heavily overclocked.
+//        .clock_speed_hz=26000000,               //Clock out at 26 MHz. Yes, that's heavily overclocked.
+.clock_speed_hz=30000000,  
         .mode=0,                                //SPI mode 0
         .spics_io_num=PIN_NUM_CS,               //CS pin
         .queue_size=NO_SIM_TRANS,               //We want to be able to queue this many transfers

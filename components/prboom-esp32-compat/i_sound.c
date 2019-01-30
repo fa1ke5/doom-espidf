@@ -466,6 +466,14 @@ void I_InitSound(void)
 {
   mixbuffer = malloc(MIXBUFFERSIZE*sizeof(unsigned char));
 
+  static const i2s_pin_config_t pin_config = {
+
+.data_out_num = 25
+
+
+
+};
+
   static const i2s_config_t i2s_config = {
     .mode = I2S_MODE_MASTER | I2S_MODE_TX | /*I2S_MODE_PDM,*/ I2S_MODE_DAC_BUILT_IN,
     .sample_rate = SAMPLERATE,
@@ -480,9 +488,11 @@ void I_InitSound(void)
 
   i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);   //install and start i2s driver
 
-  i2s_set_pin(I2S_NUM_0, NULL); //for internal DAC, this will enable both of the internal channels
+//  i2s_set_pin(I2S_NUM_0, NULL); //for internal DAC, this will enable both of the internal channels
+i2s_set_pin(I2S_NUM_0, &pin_config);
 
-  i2s_set_dac_mode(I2S_DAC_CHANNEL_LEFT_EN);  
+  i2s_set_dac_mode(I2S_DAC_CHANNEL_RIGHT_EN);  
+//i2s_set_dac_mode(I2S_DAC_CHANNEL_DISABLE);  
 /*    
       Values:
 
